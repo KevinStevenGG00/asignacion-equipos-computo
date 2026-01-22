@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Niveles - PARTE PERMANENTE (Editable)
+model Nivel {
+  id                  String   @id @default(cuid())
+  nivel               String   @unique // "NIVEL 1-A"
+  nombre              String // "Procesamiento Intensivo Profesional"
+  descripcion         String
+  ejemplos            String[] // Array de ejemplos
+  software            String
+  requisitoPermanente String
+  criticidad          String // "CRÍTICO - No admite GPU integrada..."
+
+  especificaciones Especificacion[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+// Especificaciones por AÑO (Historial completo)
+model Especificacion {
+  id      String @id @default(cuid())
+  nivelId String
+  nivel   Nivel  @relation(fields: [nivelId], references: [id], onDelete: Cascade)
+
+  año           Int // 2025, 2026, etc.
+  vigencia       String // "Vigente: 2026"
+  procesador     String
+  nucleos        String // "Mínimo: 8 núcleos físicos / 16 hilos"
+  frecuencia     String // "Frecuencia base: 3.0 GHz o superior"
+  ram            String // "32 GB DDR4-3200MHz o DDR5"
+  almacenamiento String // "SSD NVMe PCIe 4.0 - 1TB..."
+  gpu            String
+  so             String // "Windows 11 Pro (64-bit)"
+  notas          String // Notas específicas
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([nivelId, año]) // Un año por nivel
+}
+
+// Nota Importante por AÑO
+model NotaImportante {
+  id        String @id @default(cuid())
+  año      Int    @unique
+  contenido String // Todo el HTML con el contenido
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

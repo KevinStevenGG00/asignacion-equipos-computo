@@ -16,7 +16,7 @@ interface NivelPermanente {
   criticidad: string;
 }
 
-const MatrizAsignacionEquiposDinamico = () => {
+const MatrizAsignacionEquipos = () => {
   const [seleccionTipoFuncion, setSeleccionTipoFuncion] = useState<TipoFuncion | ''>('');
   const [seleccionMovilidad, setSeleccionMovilidad] = useState('');
   const [vistaActual, setVistaActual] = useState('permanente'); // permanente, actualizable, diagnostico
@@ -107,10 +107,10 @@ const MatrizAsignacionEquiposDinamico = () => {
   ];
 
   // PARTE ACTUALIZABLE - SE REVISA CADA 1-2 AÑOS
-  const especificaciones2025 = {
+  const especificaciones2026 = {
     'A1': {
       nivel: 'NIVEL 1-A',
-      vigencia: 'Vigente: 2025-2026',
+      vigencia: 'Vigente: 2026',
       procesador: 'Intel Core i7-12700 o superior (12va gen+) / AMD Ryzen 7 5800X o superior',
       nucleos: 'Mínimo: 8 núcleos físicos / 16 hilos',
       frecuencia: 'Frecuencia base: 3.0 GHz o superior',
@@ -122,7 +122,7 @@ const MatrizAsignacionEquiposDinamico = () => {
     },
     'A2': {
       nivel: 'NIVEL 1-B',
-      vigencia: 'Vigente: 2025-2026',
+      vigencia: 'Vigente: 2026',
       procesador: 'Intel Core i7-11700 o superior (11va gen+) / AMD Ryzen 7 5700X o superior',
       nucleos: 'Mínimo: 8 núcleos físicos / 16 hilos',
       frecuencia: 'Frecuencia base: 2.5 GHz o superior',
@@ -134,7 +134,7 @@ const MatrizAsignacionEquiposDinamico = () => {
     },
     'B': {
       nivel: 'NIVEL 2',
-      vigencia: 'Vigente: 2025-2026',
+      vigencia: 'Vigente: 2026',
       procesador: 'Intel Core i5-11400 o superior (11va gen+) / AMD Ryzen 5 5600 o superior',
       nucleos: 'Mínimo: 6 núcleos físicos / 12 hilos',
       frecuencia: 'Frecuencia base: 2.6 GHz o superior',
@@ -146,7 +146,7 @@ const MatrizAsignacionEquiposDinamico = () => {
     },
     'C': {
       nivel: 'NIVEL 3',
-      vigencia: 'Vigente: 2025-2026',
+      vigencia: 'Vigente: 2026',
       procesador: 'Intel Core i5-10400 o superior (10ma gen+) / AMD Ryzen 5 4600G o superior',
       nucleos: 'Mínimo: 6 núcleos físicos',
       frecuencia: 'Frecuencia base: 2.9 GHz o superior',
@@ -160,7 +160,7 @@ const MatrizAsignacionEquiposDinamico = () => {
   
   const getEspecificaciones = (): {
     permanente: NivelPermanente;
-    actualizable: (typeof especificaciones2025)[TipoFuncion];
+    actualizable: (typeof especificaciones2026)[TipoFuncion];
     } | null => {
     if (!seleccionTipoFuncion) return null;
 
@@ -172,7 +172,7 @@ const MatrizAsignacionEquiposDinamico = () => {
 
     return {
         permanente,
-        actualizable: especificaciones2025[seleccionTipoFuncion]
+        actualizable: especificaciones2026[seleccionTipoFuncion]
     };
   };
 
@@ -200,7 +200,7 @@ const MatrizAsignacionEquiposDinamico = () => {
             Gobierno Regional de Huánuco - Sede Central
           </p>
           <p className="text-sm text-gray-500 ml-11 mt-1">
-            Sistema de evaluación basado en funcionalidad - Año 2025
+            Sistema de evaluación basado en funcionalidad
           </p>
         </div>
 
@@ -224,8 +224,8 @@ const MatrizAsignacionEquiposDinamico = () => {
                 <RefreshCw className="w-5 h-5 text-orange-600" />
                 <h4 className="font-bold text-orange-900">PARTE ACTUALIZABLE</h4>
               </div>
-              <p className="text-sm text-gray-700 mb-2">Especificaciones técnicas actuales. <strong>Se actualiza cada 1-2 años.</strong></p>
-              <p className="text-xs text-gray-600">Ejemplo: "i7-12700" hoy es alto rendimiento, en 3 años será medio-alto.</p>
+              <p className="text-sm text-gray-700 mb-2">Especificaciones técnicas actuales. <strong>Se actualiza cada cierto tiempo.</strong></p>
+              <p className="text-xs text-gray-600">Ejemplo: "i7-12700" se considera de alto rendimiento, en 3 años será medio-alto.</p>
             </div>
           </div>
         </div>
@@ -252,7 +252,7 @@ const MatrizAsignacionEquiposDinamico = () => {
             }`}
           >
             <Calendar className="w-5 h-5" />
-            Especificaciones 2025
+            Especificaciones 2026
           </button>
           <button
             onClick={() => setVistaActual('diagnostico')}
@@ -289,7 +289,7 @@ const MatrizAsignacionEquiposDinamico = () => {
                       <th className="border border-green-500 p-3 text-center font-bold">NIVEL</th>
                       <th className="border border-green-500 p-3 text-left font-bold">TIPO DE FUNCIÓN</th>
                       <th className="border border-green-500 p-3 text-left font-bold">EJEMPLOS DE ACTIVIDADES</th>
-                      <th className="border border-green-500 p-3 text-left font-bold">SOFTWARE TÍPICO</th>
+                      <th className="border border-green-500 p-3 text-left font-bold">EJEMPLO DE SOFTWARE TÍPICO</th>
                       <th className="border border-green-500 p-3 text-left font-bold">REQUISITO PERMANENTE</th>
                     </tr>
                   </thead>
@@ -333,18 +333,18 @@ const MatrizAsignacionEquiposDinamico = () => {
               <div className="grid md:grid-cols-2 gap-3 text-sm text-blue-800">
                 <div className="flex items-center gap-2">
                   <Laptop className="w-5 h-5" />
-                  <span><strong>Función con movilidad</strong> (campo, supervisión) → LAPTOP</span>
+                  <span><strong>Función que requiere movilidad</strong> (campo, supervisión) → Computadora portátil / LAPTOP</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Monitor className="w-5 h-5" />
-                  <span><strong>Función en puesto fijo</strong> (oficina) → DESKTOP</span>
+                  <span><strong>Función en puesto fijo</strong> (oficina) → Computadora de escritorio / DESKTOP</span>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* VISTA: ESPECIFICACIONES ACTUALIZABLES 2025 */}
+        {/* VISTA: ESPECIFICACIONES ACTUALIZABLES 2026 */}
         {vistaActual === 'actualizable' && (
           <div className="space-y-6">
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg shadow-xl p-6 border-2 border-orange-300">
@@ -352,19 +352,19 @@ const MatrizAsignacionEquiposDinamico = () => {
                 <Calendar className="w-8 h-8 text-orange-600" />
                 <div>
                   <h2 className="text-2xl font-bold text-gray-800">Especificaciones Técnicas Actualizables</h2>
-                  <p className="text-sm text-gray-600">Vigencia: 2025-2026 | Próxima revisión: Enero 2027</p>
+                  <p className="text-sm text-gray-600">Vigencia: 2026 | Próxima revisión: Enero 2027</p>
                 </div>
               </div>
               <div className="bg-white rounded-lg p-4 mt-4">
                 <p className="text-sm text-gray-700">
-                  <strong>Importante:</strong> Estas especificaciones se actualizan cada 1-2 años según la evolución tecnológica del mercado. 
+                  <strong>Importante:</strong> Estas especificaciones se deben actualizar cada 1-2 años según la evolución tecnológica del mercado. 
                   Los modelos que hoy son "Alto Rendimiento" en 2-3 años serán "Medio-Alto", y así sucesivamente.
                 </p>
               </div>
             </div>
 
             {/* Tabla de Especificaciones */}
-            {Object.values(especificaciones2025).map((spec, idx) => (
+            {Object.values(especificaciones2026).map((spec, idx) => (
               <div key={idx} className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-orange-500">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -416,8 +416,8 @@ const MatrizAsignacionEquiposDinamico = () => {
                 Nota Importante sobre Actualización
               </h3>
               <p className="text-sm text-red-800">
-                <strong>RAM Mínima Institucional:</strong> A partir de 2025, el estándar mínimo institucional es <strong>16GB de RAM</strong> para todos los niveles, 
-                según decisión de la Subgerencia de Modernización y Transformación Digital. Este requisito aplica incluso para el NIVEL 3.
+                <strong>RAM Mínima Institucional:</strong> A partir de 2026, el estándar mínimo institucional es <strong>16GB de RAM</strong> para todos los niveles, 
+                según decisión de la Sub Gerencia de Modernización y Transformación Digital. Este requisito aplica incluso para el NIVEL 3.
               </p>
             </div>
           </div>
@@ -517,7 +517,7 @@ const MatrizAsignacionEquiposDinamico = () => {
                     <Laptop className={`w-12 h-12 flex-shrink-0 ${seleccionMovilidad === 'movil' ? 'text-purple-600' : 'text-gray-400'}`} />
                     <div className="flex-1">
                       <h3 className="font-bold text-lg text-gray-800 mb-2">LAPTOP (Portátil)</h3>
-                      <p className="text-sm text-gray-600 mb-3">Para funciones con movilidad</p>
+                      <p className="text-sm text-gray-600 mb-3">Para funciones que requieren movilidad</p>
                       <ul className="text-sm text-gray-600 space-y-1">
                         <li className="flex items-start gap-2">
                           <span className="text-purple-600">•</span>
@@ -617,7 +617,7 @@ const MatrizAsignacionEquiposDinamico = () => {
                   <div className="border-t-2 border-gray-200 pt-6">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-bold text-xl text-gray-800">
-                        Especificaciones Técnicas Vigentes (2025-2026)
+                        Especificaciones Técnicas Vigentes (2026)
                       </h3>
                       <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-bold">
                         Actualizable
@@ -665,11 +665,11 @@ const MatrizAsignacionEquiposDinamico = () => {
                   <ul className="text-sm text-amber-900 space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="font-bold text-amber-600">✓</span>
-                      <span>El equipo a asignar debe <strong>cumplir o superar</strong> todas las especificaciones técnicas indicadas</span>
+                      <span>El equipo a asignar debe <strong>cumplir o superar por poco</strong> todas las especificaciones técnicas indicadas</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-bold text-amber-600">✓</span>
-                      <span><strong>RAM mínima institucional: 16GB</strong> para todos los niveles (decisión 2025)</span>
+                      <span><strong>RAM mínima institucional: 16GB</strong> para todos los niveles (decisión 2026)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="font-bold text-amber-600">✓</span>
@@ -707,14 +707,14 @@ const MatrizAsignacionEquiposDinamico = () => {
           <div className="text-center">
             <p className="text-base mb-2 font-bold">Gobierno Regional de Huánuco</p>
             <p className="text-sm text-gray-300">
-              Subgerencia de Modernización y Transformación Digital
+              Sub Gerencia de Modernización y Transformación Digital
             </p>
             <div className="border-t border-gray-700 my-3"></div>
             <p className="text-xs text-gray-400">
               Matriz de Evaluación Funcional para Asignación de Equipos de Cómputo
             </p>
             <p className="text-xs text-gray-500 mt-1">
-              Año 2025 - Versión 2.0 | Estructura: Permanente + Actualizable
+              Año 2026 - Versión 1.0 | Estructura: Permanente + Actualizable
             </p>
           </div>
         </div>
@@ -723,4 +723,4 @@ const MatrizAsignacionEquiposDinamico = () => {
   );
 };
 
-export default MatrizAsignacionEquiposDinamico;
+export default MatrizAsignacionEquipos;
