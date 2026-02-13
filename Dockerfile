@@ -1,30 +1,29 @@
-# ---------- Base ----------
-FROM node:20-alpine AS base
+# ---------- Stage 1: Builder ----------
+FROM node:20-alpine AS builder
+
 WORKDIR /app
 
-# ---------- Dependencies ----------
-FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package*.json ./
+RUN npm ci
 
-# ---------- Build ----------
-FROM base AS builder
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# GENERAR PRISMA CLIENT
 RUN npx prisma generate
-
-# BUILD NEXT
 RUN npm run build
 
-# ---------- Production ----------
-FROM node:20-alpine AS runner
+# ---------- Stage 2: Runner ----------
+FROM node:20-alpine
+
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY --from=builder /app ./
+COPY --from=builder /app/package*.json ./
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 3000
 
