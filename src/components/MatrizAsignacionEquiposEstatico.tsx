@@ -225,7 +225,7 @@ const MatrizAsignacionEquipos = () => {
                 <h4 className="font-bold text-orange-900">PARTE ACTUALIZABLE</h4>
               </div>
               <p className="text-sm text-gray-700 mb-2">Especificaciones técnicas actuales. <strong>Se actualiza cada cierto tiempo.</strong></p>
-              <p className="text-xs text-gray-600">Ejemplo: "i7-12700" se considera de alto rendimiento, en 3 años será medio-alto.</p>
+              <p className="text-xs text-gray-600">Ejemplo: "i7-12700" se considera de alto rendimiento, en 2-3 años será medio-alto.</p>
             </div>
           </div>
         </div>

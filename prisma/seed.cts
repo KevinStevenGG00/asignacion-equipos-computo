@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@prisma/client';
+import { exit } from 'node:process';
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -13,6 +14,7 @@ async function main() {
     await prisma.especificacion.deleteMany();
     await prisma.nivel.deleteMany();
 
+    exit()
     // CREAR NIVELES - PARTE PERMANENTE
     console.log('Creando niveles permanentes...');
 
