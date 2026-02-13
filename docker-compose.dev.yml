@@ -1,14 +1,49 @@
+version: '3.8'
+
 services:
+  db:
+    image: postgres:16-alpine
+    container_name: asignacion_db_dev
+    restart: unless-stopped
+    env_file:
+      - .env.development
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network_dev
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   app:
+    image: node:20-alpine
+    container_name: asignacion_app_dev
+    working_dir: /app
+    env_file:
+      - .env.development
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev
-    env_file:
-      - .env.development
-
-  db:
-    env_file:
-      - .env.development
+      - /app/.next
     ports:
-      - "5432:5432"
+      - "3000:3000"
+    command: sh -c "npm install && npx prisma generate && npm run dev"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app_network_dev
+    stdin_open: true
+    tty: true
+
+networks:
+  app_network_dev:
+    driver: bridge
+
+volumes:
+  postgres_data_dev:
+    driver: local
